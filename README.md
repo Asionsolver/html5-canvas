@@ -476,3 +476,26 @@ Wait, actually, resizing the canvas resets the bitmap, but the context object re
 Hmm, I think it's safer to say that the context is associated with the canvas, and its state is tied to the canvas's current bitmap.
 
 But for most purposes, you can treat the context as persistent for the lifetime of the canvas.
+
+## `beginPath()` and `fill()`
+
+```javascript
+ctx.fillStyle = 'red';
+ctx.beginPath();
+ctx.arc(100, 100, 50, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.strokeStyle = 'blue';
+ctx.lineWidth = 5;
+ctx.beginPath();
+ctx.arc(200, 200, 50, 0, Math.PI * 2);
+ctx.stroke();
+```
+
+### `beginPath()`: Starting a Fresh Path
+
+ When you draw shapes, you have to manage paths. The beginPath() method starts a new path. If you don't call it, the previous path commands might still be in the context, leading to unexpected results. For example, if you draw a circle and then another shape without beginPath(), both might get drawn together when you call fill() or stroke(). So in the example, using beginPath() ensures that the arc is the only shape being drawn when fill() is called.
+
+### `fill()`:Rendering the Path
+
+The fill() method. After defining a path with arc(), you need to actually render it. The fill() fills the current path with the current fillStyle, which in this case is red. Without fill(), the path is just defined but not visible on the canvas. So fill() is essential to make the circle appear.

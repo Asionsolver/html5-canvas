@@ -6,29 +6,46 @@ canvas.height = window.innerHeight;
 
 
 const mouse = {
-    x: null,
-    y: null,
+    x: undefined,
+    y: undefined,
 };
 
 canvas.addEventListener('click', function (e) {
     // console.log(e);
     mouse.x = e.x;
     mouse.y = e.y;
+
     // console.log(mouse);
-    drawCircle();
+    // drawCircle();
 });
 
 canvas.addEventListener('mousemove', function (e) {
     mouse.x = e.x;
     mouse.y = e.y;
-    console.log(mouse);
-    drawCircle();
+    // console.log(mouse);
+    // drawCircle();
 });
 
 function drawCircle() {
-    ctx.beginPath();
-    ctx.arc(mouse.x, mouse.y, 2, 0, Math.PI * 2);
     ctx.fillStyle = 'blue';
+    ctx.beginPath();
+    ctx.arc(mouse.x, mouse.y, 20, 0, Math.PI * 2);
     ctx.fill();
 }
+
+
+
+
+
+
+
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawCircle();
+
+    requestAnimationFrame(animate);
+}
+
+animate();
 
